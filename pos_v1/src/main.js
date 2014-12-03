@@ -73,27 +73,31 @@ function getInventoryText(cartItems){
 
 function getCartItemsText(cartItems){
   var text = '';
+
   for(var i = 0; i < cartItems.length;i++){
     var number = 0;
     number = promotions(cartItems[i]);
-    if(number > 0){
+
+    if (number > 0) {
       text += '名称：' + cartItems[i].item.name +
       '，数量：' + cartItems[i].count + cartItems[i].item.unit +
       '，单价：' + (cartItems[i].item.price).toFixed(2) +
       '(元)，小计：'+ ((cartItems[i].count - number) * cartItems[i].item.price).toFixed(2) + '(元)\n';
       sumPrice += ((cartItems[i].count - number) * cartItems[i].item.price);
       promotionPrice += number * (cartItems[i].item.price)
-    }else{
+    } else {
       text += '名称：' + cartItems[i].item.name +
       '，数量：' + cartItems[i].count + cartItems[i].item.unit +
       '，单价：' + (cartItems[i].item.price).toFixed(2) +
       '(元)，小计：'+ (cartItems[i].count * cartItems[i].item.price).toFixed(2) + '(元)\n';
       sumPrice += (cartItems[i].count * cartItems[i].item.price);
     }
-
+    
   }
+
   return text;
 }
+
 function getPromotionsText(){
   var text = '';
   for(var i = 0; i < promotion.length; i++){
