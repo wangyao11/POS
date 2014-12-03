@@ -106,10 +106,12 @@ function getCartItemsText(cartItems){
 
 function getPromotionsText(){
   var text = '';
+
   for(var i = 0; i < globalPromotions.length; i++){
-    text += '名称：'+globalPromotions[i].name +
-    '，数量：'+globalPromotions[i].number+ globalPromotions[i].unit + '\n';
+    text += '名称：'+ globalPromotions[i].name +
+      '，数量：' + globalPromotions[i].number + globalPromotions[i].unit + '\n';
   }
+
   return text;
 }
 function getPromotionCount(cartItem){
