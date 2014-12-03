@@ -1,5 +1,5 @@
 
-var promotion = [];
+var globalPromotions = [];
 var sumPrice = 0;
 var promotionPrice = 0;
 function printInventory(tags){
@@ -106,20 +106,43 @@ function getCartItemsText(cartItems){
 
 function getPromotionsText(){
   var text = '';
-  for(var i = 0; i < promotion.length; i++){
-    text += '名称：'+promotion[i].name +
-    '，数量：'+promotion[i].number+ promotion[i].unit + '\n';
+  for(var i = 0; i < globalPromotions.length; i++){
+    text += '名称：'+globalPromotions[i].name +
+    '，数量：'+globalPromotions[i].number+ globalPromotions[i].unit + '\n';
   }
   return text;
 }
 function getPromotionCount(cartItem){
+  var promotionCount = 0;
+
   var promotions = loadPromotions();
-  for(var i = 0; i < promotions.length; i++){
-    for(var j = 0; j < promotions[i].barcodes.length; j++){
-      if( promotions[i].barcodes[j] === cartItem.item.barcode && promotions[i].type === 'BUY_TWO_GET_ONE_FREE'){
-        promotion.push({name : cartItem.item.name,number : parseInt(cartItem.count/3),unit : cartItem.item.unit});
-        return parseInt(cartItem.count/3);
+
+  var promotion = findPromotion(promotions, 'BUY_TWO_GET_ONE_FREE');
+  if (promotion) {
+    for(var i = 0; i < promotion.barcodes.length; i++){
+      if (promotion.barcodes[i] === cartItem.item.barcode) {
+        globalPromotions.push({
+          name : cartItem.item.name,
+          number : parseInt(cartItem.count / 3),
+          unit : cartItem.item.unit
+        });
+
+        return parseInt(cartItem.count / 3);
       }
     }
   }
+
+  return promotionCount;
+}
+
+function findPromotion(promotions, type) {
+  var promotion;
+
+  for(var i = 0; i < promotions.length; i++) {
+    if (promotions[i].type === type) {
+      promotion = promotions[i];
+    }
+  }
+
+  return promotion;
 }
