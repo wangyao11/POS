@@ -61,7 +61,7 @@ function getInventoryText(cartItems){
   inventoryText += getCartItemsText(cartItems);
   inventoryText += '----------------------\n';
   inventoryText += '挥泪赠送商品：\n';
-  inventoryText += promotionsList();
+  inventoryText += getPromotionsText();
   inventoryText += '----------------------\n' ;
   inventoryText += '总计：' + sumPrice.toFixed(2) + '(元)\n' ;
   inventoryText += '节省：' + promotionPrice.toFixed(2) + '(元)\n' ;
@@ -94,7 +94,7 @@ function getCartItemsText(cartItems){
   }
   return text;
 }
-function promotionsList(){
+function getPromotionsText(){
   var text = '';
   for(var i = 0; i < promotion.length; i++){
     text += '名称：'+promotion[i].name +
