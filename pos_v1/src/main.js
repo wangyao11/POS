@@ -75,24 +75,30 @@ function getCartItemsText(cartItems){
   var text = '';
 
   for(var i = 0; i < cartItems.length;i++){
-    var number = 0;
-    number = promotions(cartItems[i]);
 
-    if (number > 0) {
-      text += '名称：' + cartItems[i].item.name +
-      '，数量：' + cartItems[i].count + cartItems[i].item.unit +
-      '，单价：' + (cartItems[i].item.price).toFixed(2) +
-      '(元)，小计：'+ ((cartItems[i].count - number) * cartItems[i].item.price).toFixed(2) + '(元)\n';
-      sumPrice += ((cartItems[i].count - number) * cartItems[i].item.price);
-      promotionPrice += number * (cartItems[i].item.price)
-    } else {
-      text += '名称：' + cartItems[i].item.name +
-      '，数量：' + cartItems[i].count + cartItems[i].item.unit +
-      '，单价：' + (cartItems[i].item.price).toFixed(2) +
-      '(元)，小计：'+ (cartItems[i].count * cartItems[i].item.price).toFixed(2) + '(元)\n';
-      sumPrice += (cartItems[i].count * cartItems[i].item.price);
+    var cartItem = cartItems[i];
+    var item = cartItem.item;
+    var count = cartItem.count;
+    var price = item.price;
+
+    var promotionCount = getPromotionCount(cartItem);
+
+    var paymentCount = count - promotionCount;
+
+    var subtotal = promotionCount > 0
+                   ? paymentCount * price
+                   : count * price;
+
+    text += '名称：' + item.name +
+      '，数量：' + count + item.unit +
+      '，单价：' + price.toFixed(2) +
+      '(元)，小计：'+ subtotal.toFixed(2) + '(元)\n';
+
+    sumPrice += subtotal;
+
+    if (promotionCount > 0) {
+      promotionPrice += promotionCount * price;
     }
-    
   }
 
   return text;
@@ -106,7 +112,7 @@ function getPromotionsText(){
   }
   return text;
 }
-function promotions(cartItem){
+function getPromotionCount(cartItem){
   var promotions = loadPromotions();
   for(var i = 0; i < promotions.length; i++){
     for(var j = 0; j < promotions[i].barcodes.length; j++){
