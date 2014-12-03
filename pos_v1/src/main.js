@@ -58,7 +58,7 @@ function getItem(barcode,allItems){
 function getInventoryText(cartItems){
 
   inventoryText = '***<没钱赚商店>购物清单***\n'
-  inventoryText += cartItemsList(cartItems);
+  inventoryText += getCartItemsText(cartItems);
   inventoryText += '----------------------\n';
   inventoryText += '挥泪赠送商品：\n';
   inventoryText += promotionsList();
@@ -71,7 +71,7 @@ function getInventoryText(cartItems){
   return inventoryText;
 }
 
-function cartItemsList(cartItems){
+function getCartItemsText(cartItems){
   var text = '';
   for(var i = 0; i < cartItems.length;i++){
     var number = 0;
