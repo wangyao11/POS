@@ -66,8 +66,8 @@ function getGlobalPromotion(cartItems){
 
   _.forEach(cartItems,function(cartItem){
     var promotions = loadPromotions();
+    var promotion = _.find(promotions,{type:'BUY_TWO_GET_ONE_FREE'});
 
-    var promotion = findPromotion(promotions, 'BUY_TWO_GET_ONE_FREE');
     if( promotion ){
 
       var promotionBarcode = findPromotionBarcode(promotion,cartItem);
@@ -149,8 +149,7 @@ function getPromotionCount(cartItem,globalPromotion){
   var promotionCount = 0;
 
   var promotions = loadPromotions();
-
-  var promotion = findPromotion(promotions, 'BUY_TWO_GET_ONE_FREE');
+  var promotion = _.find(promotions,{type:'BUY_TWO_GET_ONE_FREE'});
   if( promotion ){
 
     var promotionBarcode = findPromotionBarcode(promotion,cartItem);
@@ -163,17 +162,6 @@ function getPromotionCount(cartItem,globalPromotion){
   return promotionCount;
 }
 
-function findPromotion(promotions, type){
-  var promotion;
-
-  for(var i = 0; i < promotions.length; i++) {
-    if (promotions[i].type === type) {
-      promotion = promotions[i];
-    }
-  }
-
-  return promotion;
-}
 
 function findPromotionBarcode(promotion,cartItem){
   var promotionBarcode;
