@@ -38,18 +38,18 @@ function getCartItems(tags){
 
 function getInventoryText(cartItems){
 
-  var globalPromotion = getGlobalPromotion(cartItems);
+  var globalPromotions = getGlobalPromotions(cartItems);
 
   inventoryText = '***<没钱赚商店>购物清单***\n';
   inventoryText += getCartItemsText(cartItems);
   inventoryText += '----------------------\n';
   inventoryText += '挥泪赠送商品：\n';
-  inventoryText += getPromotionsText(globalPromotion);
+  inventoryText += getPromotionsText(globalPromotions);
   inventoryText += '----------------------\n' ;
 
   var totalPrices = getTotalPrices(cartItems);
 
-  var promotionPrice = getPromotionPrice(globalPromotion);
+  var promotionPrice = getPromotionPrice(globalPromotions);
 
   var total = getTotal(totalPrices,promotionPrice);
 
@@ -61,8 +61,8 @@ function getInventoryText(cartItems){
   return inventoryText;
 }
 
-function getGlobalPromotion(cartItems){
-  var globalPromotion = [];
+function getGlobalPromotions(cartItems){
+  var globalPromotions = [];
 
   _.forEach(cartItems,function(cartItem){
     var promotions = loadPromotions();
@@ -73,19 +73,20 @@ function getGlobalPromotion(cartItems){
      });
 
     if (promotionBarcode) {
-      globalPromotion.push({
+      globalPromotions.push({
         name : cartItem.item.name,
         number : parseInt(cartItem.count / 3),
         unit : cartItem.item.unit,
         price:cartItem.item.price});
     }
   });
-  return globalPromotion;
+  return globalPromotions;
 }
-function getPromotionPrice(globalPromotion){
+function getPromotionPrice(globalPromotions){
   var promotionPrice = 0;
-  for(var i = 0; i < globalPromotion.length; i++){
-    promotionPrice += globalPromotion[i].number * globalPromotion[i].price;
+
+  for(var i = 0; i < globalPromotions.length; i++){
+    promotionPrice += globalPromotions[i].number * globalPromotions[i].price;
 
   }
   return promotionPrice;
