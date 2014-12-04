@@ -93,16 +93,13 @@ function getPromotionPrice(globalPromotions){
 
 function getTotalPrices(cartItems){
   var totalPrices = 0;
-
-  for(var i = 0; i < cartItems.length;i++){
-    var cartItem = cartItems[i];
+  _.forEach(cartItems,function(cartItem){
     var item = cartItem.item;
     var count = cartItem.count;
     var price = item.price;
 
     totalPrices += count*price;
-
-  }
+  })
 
   return totalPrices;
 }
