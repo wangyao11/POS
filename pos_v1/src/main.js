@@ -20,29 +20,20 @@ function getCartItems(tags){
       count = parseFloat(tagArray[1]);
     }
 
-    var cartItem = _.find(cartItems,function(cartItem){
+    var cartItem = _.find(cartItems, function(cartItem){
       return barcode === cartItem.item.barcode;
     });
     if (cartItem) {
       cartItem.count += count;
     } else {
-      var item = findItem(barcode,loadAllItems());
+      var item = _.find(allItems, function(item){
+        return barcode === item.barcode;
+      });
       cartItems.push({item : item, count : count});
 
     }
   }
   return cartItems;
-}
-
-function findItem(barcode,allItems){
-  var item ;
-
-  for(var i = 0; i < allItems.length;i++){
-    if (barcode === allItems[i].barcode) {
-      item = allItems[i];
-    }
-  }
-  return item;
 }
 
 function getInventoryText(cartItems){
