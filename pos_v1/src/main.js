@@ -39,8 +39,6 @@ function getCartItems(tags){
 function getInventoryText(cartItems){
 
   var globalPromotion = getGlobalPromotion(cartItems);
-  console.log(globalPromotion);
-
 
   inventoryText = '***<没钱赚商店>购物清单***\n';
   inventoryText += getCartItemsText(cartItems);
@@ -65,9 +63,9 @@ function getInventoryText(cartItems){
 
 function getGlobalPromotion(cartItems){
   var globalPromotion = [];
-  for(var i = 0; i < cartItems.length;i++){
+
+  _.forEach(cartItems,function(cartItem){
     var promotions = loadPromotions();
-    var cartItem = cartItems[i];
 
     var promotion = findPromotion(promotions, 'BUY_TWO_GET_ONE_FREE');
     if( promotion ){
@@ -82,7 +80,7 @@ function getGlobalPromotion(cartItems){
           price:cartItem.item.price});
         }
       }
-  }
+  });
   return globalPromotion;
 }
 function getPromotionPrice(globalPromotion){
