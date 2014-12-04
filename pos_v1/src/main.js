@@ -68,18 +68,17 @@ function getGlobalPromotion(cartItems){
     var promotions = loadPromotions();
     var promotion = _.find(promotions,{type:'BUY_TWO_GET_ONE_FREE'});
 
-    if( promotion ){
+    var promotionBarcode = _.find(promotion.barcodes,function(promotionBarcode){
+      return promotionBarcode === cartItem.item.barcode;
+     });
 
-      var promotionBarcode = findPromotionBarcode(promotion,cartItem);
-
-      if (promotionBarcode) {
-        globalPromotion.push({
-          name : cartItem.item.name,
-          number : parseInt(cartItem.count / 3),
-          unit : cartItem.item.unit,
-          price:cartItem.item.price});
-        }
-      }
+    if (promotionBarcode) {
+      globalPromotion.push({
+        name : cartItem.item.name,
+        number : parseInt(cartItem.count / 3),
+        unit : cartItem.item.unit,
+        price:cartItem.item.price});
+    }
   });
   return globalPromotion;
 }
@@ -150,27 +149,15 @@ function getPromotionCount(cartItem,globalPromotion){
 
   var promotions = loadPromotions();
   var promotion = _.find(promotions,{type:'BUY_TWO_GET_ONE_FREE'});
-  if( promotion ){
 
-    var promotionBarcode = findPromotionBarcode(promotion,cartItem);
+  var promotionBarcode = _.find(promotion.barcodes,function(promotionBarcode){
+    return promotionBarcode === cartItem.item.barcode;
+  });
 
-      if (promotionBarcode) {
+  if (promotionBarcode) {
 
-        return parseInt(cartItem.count / 3);
-      }
+    return parseInt(cartItem.count / 3);
   }
+
   return promotionCount;
-}
-
-
-function findPromotionBarcode(promotion,cartItem){
-  var promotionBarcode;
-
-  for(var i = 0; i < promotion.barcodes.length; i++) {
-    if (promotion.barcodes[i] === cartItem.item.barcode) {
-      promotionBarcode = promotion.barcodes[i];
-    }
-  }
-
-  return promotionBarcode;
 }
