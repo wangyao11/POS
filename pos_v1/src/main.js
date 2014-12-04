@@ -84,11 +84,10 @@ function getGlobalPromotions(cartItems){
 }
 function getPromotionPrice(globalPromotions){
   var promotionPrice = 0;
+  _.forEach(globalPromotions, function(globalPromotion){
+    promotionPrice += globalPromotion.number * globalPromotion.price;
+  });
 
-  for(var i = 0; i < globalPromotions.length; i++){
-    promotionPrice += globalPromotions[i].number * globalPromotions[i].price;
-
-  }
   return promotionPrice;
 }
 
