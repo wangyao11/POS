@@ -51,9 +51,7 @@ function getInventoryText(cartItems){
 
   var promotionPrice = getPromotionPrice(globalPromotions);
 
-  var total = getTotal(totalPrices,promotionPrice);
-
-  inventoryText += '总计：' + total.toFixed(2) + '(元)\n' ;
+  inventoryText += '总计：' + (totalPrices - promotionPrice).toFixed(2) + '(元)\n';
   inventoryText += '节省：' + promotionPrice.toFixed(2) + '(元)\n' ;
   inventoryText += '**********************';
 
@@ -99,13 +97,9 @@ function getTotalPrices(cartItems){
     var price = item.price;
 
     totalPrices += count*price;
-  })
+  });
 
   return totalPrices;
-}
-
-function getTotal(totalPrices,promotionPrice){
-   return totalPrices - promotionPrice;
 }
 
 function getCartItemsText(cartItems){
