@@ -10,7 +10,7 @@ function printInventory(tags){
 function getCartItems(tags){
   var cartItems = [];
   var allItems = loadAllItems();
-  _.forEach(tags,function(tag){
+  _.forEach(tags, function(tag){
     var tagArray = tag.split("-");
     var barcode = tagArray[0];
     var count = 1;
@@ -101,9 +101,8 @@ function getTotalPrices(cartItems){
 
 function getCartItemsText(cartItems){
   var text = '';
+  _.forEach(cartItems, function(cartItem){
 
-  for(var i = 0; i < cartItems.length;i++){
-    var cartItem = cartItems[i];
     var item = cartItem.item;
     var count = cartItem.count;
     var price = item.price;
@@ -112,14 +111,14 @@ function getCartItemsText(cartItems){
     var paymentCount = count - promotionCount;
 
     var subtotal = promotionCount > 0 ? paymentCount * price
-                  : count * price;
+    : count * price;
 
     text += '名称：' + item.name +
-      '，数量：' + count + item.unit +
-      '，单价：' + price.toFixed(2) +
-      '(元)，小计：'+ subtotal.toFixed(2) + '(元)\n';
+    '，数量：' + count + item.unit +
+    '，单价：' + price.toFixed(2) +
+    '(元)，小计：'+ subtotal.toFixed(2) + '(元)\n';
 
-  }
+  });
   return text;
 }
 
