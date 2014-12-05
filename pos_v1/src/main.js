@@ -122,16 +122,16 @@ function getCartItemsText(cartItems){
   return text;
 }
 
-function getPromotionsText(globalPromotion){
+function getPromotionsText(globalPromotions){
   var text = '';
-  for(var i = 0; i < globalPromotion.length; i++){
-    text += '名称：'+globalPromotion[i].name +
-      '，数量：'+globalPromotion[i].number+ globalPromotion[i].unit + '\n';
+  for(var i = 0; i < globalPromotions.length; i++){
+    text += '名称：'+globalPromotions[i].name +
+      '，数量：'+globalPromotions[i].number+ globalPromotions[i].unit + '\n';
   }
   return text;
 }
 
-function getPromotionCount(cartItem,globalPromotion){
+function getPromotionCount(cartItem){
   var promotionCount = 0;
 
   var promotions = loadPromotions();
