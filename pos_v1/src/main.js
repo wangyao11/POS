@@ -10,10 +10,8 @@ function printInventory(tags){
 function getCartItems(tags){
   var cartItems = [];
   var allItems = loadAllItems();
-
-  for(var i = 0; i < tags.length; i ++){
-
-    var tagArray = tags[i].split("-");
+  _.forEach(tags,function(tag){
+    var tagArray = tag.split("-");
     var barcode = tagArray[0];
     var count = 1;
     if (tagArray[1]) {
@@ -30,9 +28,8 @@ function getCartItems(tags){
         return barcode === item.barcode;
       });
       cartItems.push({item : item, count : count});
-
     }
-  }
+  });
   return cartItems;
 }
 
