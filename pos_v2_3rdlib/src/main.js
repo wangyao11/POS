@@ -1,1 +1,4 @@
-//TODO: Please write code in this file.
+function printInventory(tags){
+  
+  console.log('打印清单！');
+}
