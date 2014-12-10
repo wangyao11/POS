@@ -5,8 +5,6 @@ function printInventory(tags) {
     cart.addCartItem(scanner.scan(tag));
   });
 
-  //var promotionItems = cart.getPromotionItems();
-
   var inventory = new Inventory(cart);
 
   console.log(inventory.toString());
