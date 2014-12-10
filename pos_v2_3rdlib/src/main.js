@@ -1,10 +1,12 @@
-function printInventory(tags){
+function printInventory(tags) {
 
   var cart = new Cart();
+  var inventory = new Inventory();
 
   cart.setCartItems(tags);
 
-  console.log(cart.getCartItems());
+  inventory.setInventoryText(cart.getCartItems());
+  var inventoryText = inventory.getInventoryText();
 
-  console.log('打印清单！');
+  console.log(inventoryText);
 }
