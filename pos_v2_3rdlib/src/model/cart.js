@@ -1,10 +1,9 @@
 function Cart(){
-  var cartItems = [];
+   this.cartItems = [];
 }
-
 Cart.prototype.setCartItems = function(tags){
   var allItems = loadAllItems();
-
+  var cartItems = this.cartItems;
   _.forEach(tags, function(tag){
     var tagArray = tag.split("-");
     var barcode = tagArray[0];
@@ -13,7 +12,7 @@ Cart.prototype.setCartItems = function(tags){
       count = parseFloat(tagArray[1]);
     }
 
-    var cartItem = _.find(this.cartItems, function(cartItem){
+    var cartItem = _.find(cartItems, function(cartItem){
       return barcode === cartItem.item.barcode;
     });
     if (cartItem) {
@@ -22,7 +21,7 @@ Cart.prototype.setCartItems = function(tags){
       var item = _.find(allItems, function(item){
         return barcode === item.barcode;
       });
-      this.cartItems.push({item : item, count : count});
+      cartItems.push({item : item, count : count});
     }
   });
 };
