@@ -59,3 +59,16 @@ Inventory.prototype.setCartItemsText = function(cartItems,globalPromotions){
 Inventory.prototype.getCartItemsText = function(){
   return this.cartItemsText;
 };
+
+Inventory.prototype.setPromotionsText = function(globalPromotions){
+  var text = '';
+  for(var i = 0; i < globalPromotions.length; i++){
+    text += '名称：'+globalPromotions[i].name +
+    '，数量：'+globalPromotions[i].promotionCount+ globalPromotions[i].unit + '\n';
+  }
+  this.promotionsText = text;
+};
+
+Inventory.prototype.getPromotionsText = function(){
+  return this.promotionsText;
+}
