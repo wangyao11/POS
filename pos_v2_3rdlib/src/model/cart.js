@@ -2,6 +2,17 @@ function Cart(){
    this.cartItems = [];
    this.promotionItems = [];
 }
+Cart.prototype.addCartItem = function(myitem){
+  var cartItems = this.cartItems;
+  var cartItem = _.find(cartItems, function(cartItem){
+    return myitem.item.barcode === cartItem.item.barcode;
+  });
+  if(cartItem){
+    cartItem.count += myitem.count;
+  }else{
+    cartItems.push(myitem);
+  }
+};
 Cart.prototype.setCartItems = function(tags){
   var allItems = loadAllItems();
   var cartItems = this.cartItems;
