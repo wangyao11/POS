@@ -40,19 +40,6 @@ Inventory.prototype.getInventoryText = function(){
   return this.inventoryText;
 };
 
-Inventory.prototype.setPromotionsText = function(globalPromotions){
-  var text = '';
-  for(var i = 0; i < globalPromotions.length; i++){
-    text += '名称：'+globalPromotions[i].name +
-    '，数量：'+globalPromotions[i].promotionCount+ globalPromotions[i].unit + '\n';
-  }
-  this.promotionsText = text;
-};
-
-Inventory.prototype.getPromotionsText = function(){
-  return this.promotionsText;
-};
-
 Inventory.prototype.setTotalPrices = function(cartItems){
   var totalPrices = 0;
   _.forEach(cartItems,function(cartItem){
