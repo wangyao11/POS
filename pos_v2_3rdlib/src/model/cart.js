@@ -44,11 +44,7 @@ Cart.prototype.setPromotionItems = function(){
     });
 
     if (promotionBarcode) {
-      // promotionItems.push({
-      //   name : cartItem.item.name,
-      //   number : parseInt(cartItem.count / 3),
-      //   unit : cartItem.item.unit,
-      //   price:cartItem.item.price});
+
       promotionItems.push(new PromotionItem(cartItem.item.name, cartItem.item.unit,
         parseInt(cartItem.count / 3), cartItem.item.price ));
       }
