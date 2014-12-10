@@ -4,14 +4,14 @@ function printInventory(tags) {
   cart.setCartItems(tags);
   cart.setPromotionItems();
 
-  console.log(cart.getPromotionItems());
-  // var inventory = new Inventory();
-  //
-  // inventory.setCartItemsText();
-  //
-  //
-  // inventory.setInventoryText(cart.getCartItems());
-  // var t = inventory.getInventoryText();
-  //
-  // console.log(inventoryText);
+  var inventory = new Inventory();
+
+  inventory.setCartItemsText(cart.getCartItems(),cart.getPromotionItems());
+  inventory.setPromotionsText(cart.getPromotionItems());
+  inventory.setTotalPrices(cart.getCartItems());
+  inventory.setPromotionPrice(cart.getPromotionItems());
+  inventory.setInventoryText();
+
+
+  console.log(inventory.getInventoryText());
 }
