@@ -5,22 +5,17 @@ function printInventory(tags) {
     cart.addCartItem(scanner.scan(tag));
   });
 
-  console.log(cart.getCartItems());
+  //console.log(cart.getCartItems());
+  var promotionItems = cart.getPromotionItems();
+
+  var inventory = new Inventory(cart);
+  
+  //inventory.setCartItemsText(cart.getCartItems(),promotionItems);
+  inventory.setPromotionsText(promotionItems);
+  inventory.setTotalPrices(cart.getCartItems());
+  inventory.setPromotionPrice(promotionItems);
+  inventory.setInventoryText();
 
 
-
-  // var cart = new Cart();
-  // cart.setCartItems(tags);
-  // cart.setPromotionItems();
-  //
-  // var inventory = new Inventory();
-  //
-  // inventory.setCartItemsText(cart.getCartItems(),cart.getPromotionItems());
-  // inventory.setPromotionsText(cart.getPromotionItems());
-  // inventory.setTotalPrices(cart.getCartItems());
-  // inventory.setPromotionPrice(cart.getPromotionItems());
-  // inventory.setInventoryText();
-  //
-  //
-  // console.log(inventory.getInventoryText());
+  console.log(inventory.getInventoryText());
 }

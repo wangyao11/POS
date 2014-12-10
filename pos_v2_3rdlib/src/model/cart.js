@@ -1,6 +1,5 @@
 function Cart(){
    this.cartItems = [];
-   this.promotionItems = [];
 }
 Cart.prototype.addCartItem = function(myitem){
   var cartItems = this.cartItems;
@@ -13,38 +12,14 @@ Cart.prototype.addCartItem = function(myitem){
     cartItems.push(myitem);
   }
 };
-Cart.prototype.setCartItems = function(tags){
-  var allItems = loadAllItems();
-  var cartItems = this.cartItems;
-  _.forEach(tags, function(tag){
-    var tagArray = tag.split("-");
-    var barcode = tagArray[0];
-    var count = 1;
-    if (tagArray[1]) {
-      count = parseFloat(tagArray[1]);
-    }
-
-    var cartItem = _.find(cartItems, function(cartItem){
-      return barcode === cartItem.item.barcode;
-    });
-    if (cartItem) {
-      cartItem.count += count;
-    } else {
-      var item = _.find(allItems, function(item){
-        return barcode === item.barcode;
-      });
-      cartItems.push({item : item, count : count});
-    }
-  });
-};
 
 Cart.prototype.getCartItems = function(){
   return this.cartItems;
 };
 
-Cart.prototype.setPromotionItems = function(){
+Cart.prototype.getPromotionItems = function(){
   var cartItems = this.cartItems;
-  var promotionItems = this.promotionItems;
+  var promotionItems = [];
 
   _.forEach(cartItems,function(cartItem){
     var promotions = loadPromotions();
@@ -60,8 +35,35 @@ Cart.prototype.setPromotionItems = function(){
         parseInt(cartItem.count / 3), cartItem.item.price ));
       }
     });
+  return promotionItems;
 };
 
-Cart.prototype.getPromotionItems = function(){
-    return this.promotionItems;
+Cart.prototype.getCartItemsText = function(){
+  var promotionItems = this.getPromotionItems();
+  var text = '';
+
+  _.forEach(this.cartItems, function(cartItem){
+
+    var item = cartItem.item;
+    var count = cartItem.count;
+    var price = item.price;
+    var promotionCount;
+    //var promotionCount = getPromotionCount(cartItem,globalPromotions);
+    _.forEach(promotionItems, function(promotionItem){
+      if(promotionItem.name === cartItem.item.name){
+        promotionCount = promotionItem.promotionCount;
+      }
+    });
+    var paymentCount = count - promotionCount;
+
+    var subtotal = promotionCount > 0 ? paymentCount * price
+    : count * price;
+
+    text += '名称：' + item.name +
+    '，数量：' + count + item.unit +
+    '，单价：' + price.toFixed(2) +
+    '(元)，小计：'+ subtotal.toFixed(2) + '(元)\n';
+
+  });
+  return text;
 };
