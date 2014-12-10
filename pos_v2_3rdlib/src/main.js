@@ -1,12 +1,17 @@
 function printInventory(tags) {
 
   var cart = new Cart();
-  var inventory = new Inventory();
-
   cart.setCartItems(tags);
+  cart.setPromotionItems();
 
-  inventory.setInventoryText(cart.getCartItems());
-  var inventoryText = inventory.getInventoryText();
-
-  console.log(inventoryText);
+  console.log(cart.getPromotionItems());
+  // var inventory = new Inventory();
+  //
+  // inventory.setCartItemsText();
+  //
+  //
+  // inventory.setInventoryText(cart.getCartItems());
+  // var t = inventory.getInventoryText();
+  //
+  // console.log(inventoryText);
 }

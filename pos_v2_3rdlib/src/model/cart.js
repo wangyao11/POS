@@ -1,5 +1,6 @@
 function Cart(){
    this.cartItems = [];
+   this.promotionItems = [];
 }
 Cart.prototype.setCartItems = function(tags){
   var allItems = loadAllItems();
@@ -28,4 +29,32 @@ Cart.prototype.setCartItems = function(tags){
 
 Cart.prototype.getCartItems = function(){
   return this.cartItems;
+};
+
+Cart.prototype.setPromotionItems = function(){
+  var cartItems = this.cartItems;
+  var promotionItems = this.promotionItems;
+
+  _.forEach(cartItems,function(cartItem){
+    var promotions = loadPromotions();
+    var promotion = _.find(promotions,{type:'BUY_TWO_GET_ONE_FREE'});
+
+    var promotionBarcode = _.find(promotion.barcodes,function(promotionBarcode){
+      return promotionBarcode === cartItem.item.barcode;
+    });
+
+    if (promotionBarcode) {
+      // promotionItems.push({
+      //   name : cartItem.item.name,
+      //   number : parseInt(cartItem.count / 3),
+      //   unit : cartItem.item.unit,
+      //   price:cartItem.item.price});
+      promotionItems.push(new PromotionItem(cartItem.item.name, cartItem.item.unit,
+        parseInt(cartItem.count / 3), cartItem.item.price ));
+      }
+    });
+};
+
+Cart.prototype.getPromotionItems = function(){
+    return this.promotionItems;
 };
