@@ -1,15 +1,15 @@
 function Cart(){
    this.cartItems = [];
 }
-Cart.prototype.addCartItem = function(myitem){
+Cart.prototype.addCartItem = function(oneCartItem){
   var cartItems = this.cartItems;
   var cartItem = _.find(cartItems, function(cartItem){
-    return myitem.item.barcode === cartItem.item.barcode;
+    return oneCartItem.item.barcode === cartItem.item.barcode;
   });
   if(cartItem){
-    cartItem.count += myitem.count;
+    cartItem.count += oneCartItem.count;
   }else{
-    cartItems.push(myitem);
+    cartItems.push(oneCartItem);
   }
 };
 
