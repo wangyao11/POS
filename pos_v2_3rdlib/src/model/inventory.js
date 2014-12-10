@@ -25,3 +25,37 @@ Inventory.prototype.setInventoryText = function(cartItems){
 Inventory.prototype.getInventoryText = function(cartItems){
   return this.inventoryText;
 };
+
+Inventory.prototype.setCartItemsText = function(cartItems,globalPromotions){
+
+  var text = '';
+
+  _.forEach(cartItems, function(cartItem){
+
+    var item = cartItem.item;
+    var count = cartItem.count;
+    var price = item.price;
+    var promotionCount;
+    //var promotionCount = getPromotionCount(cartItem,globalPromotions);
+    _.forEach(globalPromotions,function(globalPromotion){
+      if(globalPromotion.name === cartItem.item.name){
+        promotionCount = globalPromotion.promotionCount;
+      }
+    });
+    var paymentCount = count - promotionCount;
+
+    var subtotal = promotionCount > 0 ? paymentCount * price
+    : count * price;
+
+    text += '名称：' + item.name +
+    '，数量：' + count + item.unit +
+    '，单价：' + price.toFixed(2) +
+    '(元)，小计：'+ subtotal.toFixed(2) + '(元)\n';
+
+  });
+  this.cartItemsText = text;
+};
+
+Inventory.prototype.getCartItemsText = function(){
+  return this.cartItemsText;
+};
