@@ -48,7 +48,7 @@ Cart.prototype.getCartItemsText = function(){
     var count = cartItem.count;
     var price = item.price;
     var promotionCount;
-    //var promotionCount = getPromotionCount(cartItem,globalPromotions);
+
     _.forEach(promotionItems, function(promotionItem){
       if(promotionItem.name === cartItem.item.name){
         promotionCount = promotionItem.promotionCount;
@@ -66,4 +66,15 @@ Cart.prototype.getCartItemsText = function(){
 
   });
   return text;
+};
+
+Cart.prototype.getPromotionPrice = function(){
+  var promotionItems = this.getPromotionItems();
+  var promotionPrice = 0;
+
+  _.forEach(promotionItems, function(promotionItem){
+    promotionPrice += promotionItem.promotionCount * promotionItem.promotionPrice;
+  });
+
+  return promotionPrice;
 };
