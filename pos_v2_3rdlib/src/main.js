@@ -10,7 +10,7 @@ function printInventory(tags) {
   var inventory = new Inventory(cart);
 
   //inventory.setCartItemsText(cart.getCartItems(),promotionItems);
-  inventory.setPromotionsText(promotionItems);
+  //inventory.setPromotionsText(promotionItems);
   inventory.setTotalPrices(cart.getCartItems());
   //inventory.setPromotionPrice(promotionItems);
   inventory.setInventoryText();

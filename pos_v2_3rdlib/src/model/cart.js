@@ -78,3 +78,14 @@ Cart.prototype.getPromotionPrice = function(){
 
   return promotionPrice;
 };
+
+Cart.prototype.getPromotionsText = function(){
+  var promotionItems = this.getPromotionItems();
+  var promotionsText = '';
+  for(var i = 0; i < promotionItems.length; i++){
+    promotionsText += '名称：'+promotionItems[i].name +
+    '，数量：'+promotionItems[i].promotionCount+ promotionItems[i].unit + '\n';
+  }
+
+  return promotionsText;
+};
