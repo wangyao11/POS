@@ -1,5 +1,5 @@
 function PromotionItem(name, unit, count, price){
-  Item.call(this,name,unit);
+  Item.call(this,'' , name, unit);
   this.promotionCount = count;
   this.promotionPrice = price;
 }
