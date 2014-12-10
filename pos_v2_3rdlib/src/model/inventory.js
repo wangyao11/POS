@@ -7,10 +7,23 @@ function Inventory(){
 }
 
 Inventory.prototype.setInventoryText = function(cartItems){
+  dateDigitToString = function (num) {
+    return num < 10 ? '0' + num : num;
+  };
 
   var text = '';
+  var currentDate = new Date(),
+    year = dateDigitToString(currentDate.getFullYear()),
+    month = dateDigitToString(currentDate.getMonth() + 1),
+    date = dateDigitToString(currentDate.getDate()),
+    hour = dateDigitToString(currentDate.getHours()),
+    minute = dateDigitToString(currentDate.getMinutes()),
+    second = dateDigitToString(currentDate.getSeconds()),
+    formattedDateString = year + '年' + month + '月' + date + '日 ' + hour + ':' + minute + ':' + second;
 
-  text = '***<没钱赚商店>购物清单***\n';
+  text = '***<没钱赚商店>购物清单***\n' +
+         '打印时间：' + formattedDateString + '\n';
+  text += '----------------------\n';
   text += this.cartItemsText;
   text += '----------------------\n';
   text += '挥泪赠送商品：\n';
