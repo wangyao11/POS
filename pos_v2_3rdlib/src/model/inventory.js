@@ -8,17 +8,18 @@ function Inventory(){
 
 Inventory.prototype.setInventoryText = function(cartItems){
 
-  inventoryText = this.inventoryText;
+  var text = '';
 
-  inventoryText = '***<没钱赚商店>购物清单***\n';
-  inventoryText += this.cartItemsText;
-  inventoryText += '----------------------\n';
-  inventoryText += '挥泪赠送商品：\n';
-  inventoryText += this.promotionsText;
-  inventoryText += '----------------------\n' ;
-  inventoryText += '总计：' + totalPrices.toFixed(2) + '(元)\n';
-  inventoryText += '节省：' + promotionPrice.toFixed(2) + '(元)\n' ;
-  inventoryText += '**********************';
+  text = '***<没钱赚商店>购物清单***\n';
+  text += this.cartItemsText;
+  text += '----------------------\n';
+  text += '挥泪赠送商品：\n';
+  text += this.promotionsText;
+  text += '----------------------\n' ;
+  text += '总计：' + (this.totalPrices - this.promotionPrice).toFixed(2) + '(元)\n';
+  text += '节省：' + this.promotionPrice.toFixed(2) + '(元)\n' ;
+  text += '**********************';
+  this.inventoryText = text;
 
 };
 
@@ -88,4 +89,17 @@ Inventory.prototype.setTotalPrices = function(cartItems){
 
 Inventory.prototype.getTotalPrices = function(cartItems){
   return this.totalPrices;
+};
+
+Inventory.prototype.setPromotionPrice = function(globalPromotions){
+  var promotionPrice = 0;
+  _.forEach(globalPromotions, function(globalPromotion){
+    promotionPrice += globalPromotion.promotionCount * globalPromotion.promotionPrice;
+  });
+
+  this.promotionPrice = promotionPrice;
+};
+
+Inventory.prototype.getPromotionPrice = function(){
+  return this.promotionPrice;
 };
