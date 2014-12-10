@@ -31,8 +31,11 @@ Cart.prototype.getPromotionItems = function(){
 
     if (promotionBarcode) {
 
-      promotionItems.push(new PromotionItem(cartItem.item.name, cartItem.item.unit,
-        parseInt(cartItem.count / 3), cartItem.item.price ));
+      promotionItems.push({
+        name : cartItem.item.name,
+        unit : cartItem.item.unit,
+        number : parseInt(cartItem.count / 3),
+        price:cartItem.item.price});
       }
     });
   return promotionItems;
@@ -40,7 +43,7 @@ Cart.prototype.getPromotionItems = function(){
 
 Cart.prototype.getCartItemsText = function(){
   var promotionItems = this.getPromotionItems();
-  var text = '';
+  var cartItemsText = '';
 
   _.forEach(this.cartItems, function(cartItem){
 
@@ -51,21 +54,16 @@ Cart.prototype.getCartItemsText = function(){
 
     _.forEach(promotionItems, function(promotionItem){
       if(promotionItem.name === cartItem.item.name){
-        promotionCount = promotionItem.promotionCount;
+        promotionCount = promotionItem.number;
       }
     });
     var paymentCount = count - promotionCount;
 
-    var subtotal = promotionCount > 0 ? paymentCount * price
-    : count * price;
+    var subtatal = cartItem.getSubtotal(paymentCount);
 
-    text += '名称：' + item.name +
-    '，数量：' + count + item.unit +
-    '，单价：' + price.toFixed(2) +
-    '(元)，小计：'+ subtotal.toFixed(2) + '(元)\n';
-
+    cartItemsText += cartItem.toInventoryText(paymentCount);
   });
-  return text;
+  return cartItemsText;
 };
 
 Cart.prototype.getPromotionPrice = function(){
@@ -73,7 +71,7 @@ Cart.prototype.getPromotionPrice = function(){
   var promotionPrice = 0;
 
   _.forEach(promotionItems, function(promotionItem){
-    promotionPrice += promotionItem.promotionCount * promotionItem.promotionPrice;
+    promotionPrice += promotionItem.number * promotionItem.price;
   });
 
   return promotionPrice;
@@ -84,7 +82,7 @@ Cart.prototype.getPromotionsText = function(){
   var promotionsText = '';
   for(var i = 0; i < promotionItems.length; i++){
     promotionsText += '名称：'+promotionItems[i].name +
-    '，数量：'+promotionItems[i].promotionCount+ promotionItems[i].unit + '\n';
+    '，数量：'+promotionItems[i].number+ promotionItems[i].unit + '\n';
   }
 
   return promotionsText;
