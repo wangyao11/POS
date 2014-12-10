@@ -11,7 +11,7 @@ function printInventory(tags) {
 
   //inventory.setCartItemsText(cart.getCartItems(),promotionItems);
   //inventory.setPromotionsText(promotionItems);
-  inventory.setTotalPrices(cart.getCartItems());
+  //inventory.setTotalPrices(cart.getCartItems());
   //inventory.setPromotionPrice(promotionItems);
   inventory.setInventoryText();
 

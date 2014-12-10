@@ -89,3 +89,16 @@ Cart.prototype.getPromotionsText = function(){
 
   return promotionsText;
 };
+
+Cart.prototype.getTotalPrices = function(){
+  var totalPrices = 0;
+  _.forEach(this.cartItems,function(cartItem){
+    var item = cartItem.item;
+    var count = cartItem.count;
+    var price = item.price;
+
+    totalPrices += count*price;
+  });
+
+  return totalPrices;
+};
