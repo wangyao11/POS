@@ -29,8 +29,8 @@ Inventory.prototype.setInventoryText = function(cartItems){
   text += '挥泪赠送商品：\n';
   text += this.promotionsText;
   text += '----------------------\n' ;
-  text += '总计：' + (this.totalPrices - this.promotionPrice).toFixed(2) + '(元)\n';
-  text += '节省：' + this.promotionPrice.toFixed(2) + '(元)\n' ;
+  text += '总计：' + (this.totalPrices - this.cart.getPromotionPrice()).toFixed(2) + '(元)\n';
+  text += '节省：' + this.cart.getPromotionPrice().toFixed(2) + '(元)\n' ;
   text += '**********************';
   this.inventoryText = text;
 
@@ -68,17 +68,4 @@ Inventory.prototype.setTotalPrices = function(cartItems){
 
 Inventory.prototype.getTotalPrices = function(cartItems){
   return this.totalPrices;
-};
-
-Inventory.prototype.setPromotionPrice = function(globalPromotions){
-  var promotionPrice = 0;
-  _.forEach(globalPromotions, function(globalPromotion){
-    promotionPrice += globalPromotion.promotionCount * globalPromotion.promotionPrice;
-  });
-
-  this.promotionPrice = promotionPrice;
-};
-
-Inventory.prototype.getPromotionPrice = function(){
-  return this.promotionPrice;
 };
