@@ -13,8 +13,8 @@ function printInventory(tags) {
   //inventory.setPromotionsText(promotionItems);
   //inventory.setTotalPrices(cart.getCartItems());
   //inventory.setPromotionPrice(promotionItems);
-  inventory.setInventoryText();
+  //inventory.setInventoryText();
 
 
-  console.log(inventory.getInventoryText());
+  console.log(inventory.toString());
 }
