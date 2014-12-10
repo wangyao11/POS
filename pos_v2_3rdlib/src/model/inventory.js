@@ -22,7 +22,7 @@ Inventory.prototype.setInventoryText = function(cartItems){
 
 };
 
-Inventory.prototype.getInventoryText = function(cartItems){
+Inventory.prototype.getInventoryText = function(){
   return this.inventoryText;
 };
 
@@ -71,4 +71,21 @@ Inventory.prototype.setPromotionsText = function(globalPromotions){
 
 Inventory.prototype.getPromotionsText = function(){
   return this.promotionsText;
-}
+};
+
+Inventory.prototype.setTotalPrices = function(cartItems){
+  var totalPrices = 0;
+  _.forEach(cartItems,function(cartItem){
+    var item = cartItem.item;
+    var count = cartItem.count;
+    var price = item.price;
+
+    totalPrices += count*price;
+  });
+
+  this.totalPrices = totalPrices;
+};
+
+Inventory.prototype.getTotalPrices = function(cartItems){
+  return this.totalPrices;
+};
