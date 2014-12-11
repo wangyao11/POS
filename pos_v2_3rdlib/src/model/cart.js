@@ -67,6 +67,12 @@ Cart.prototype.getTotalPrices = function() {
   return totalPrices;
 };
 
+Cart.prototype.getPayThePrice = function(){
+
+  return this.getTotalPrices() - this.getPromotionTotalPrice();
+
+};
+
 Cart.prototype.getPromotionItems = function() {
   var cartItems = this.cartItems;
   var promotionItems = [];
