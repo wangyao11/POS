@@ -41,7 +41,7 @@ Cart.prototype.getPromotionItems = function(){
 };
 
 Cart.prototype.getCartItemsText = function(){
-  var promotionItems = this.getPromotionItems();
+  
   var cartItemsText = '';
 
   _.forEach(this.cartItems, function(cartItem){
