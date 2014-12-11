@@ -1,8 +1,8 @@
-function Inventory(cart){
+function Inventory(cart) {
   this.cart = cart;
 }
 
-Inventory.prototype.toString = function(){
+Inventory.prototype.toString = function() {
   dateDigitToString = function (num) {
     return num < 10 ? '0' + num : num;
   };
