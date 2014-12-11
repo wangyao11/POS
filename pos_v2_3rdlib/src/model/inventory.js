@@ -1,8 +1,8 @@
-function Inventory(cart) {
-  this.cart = cart;
+function Inventory() {
+
 }
 
-Inventory.prototype.toString = function() {
+Inventory.prototype.toString = function(cart) {
   dateDigitToString = function (num) {
     return num < 10 ? '0' + num : num;
   };
@@ -20,13 +20,13 @@ Inventory.prototype.toString = function() {
   inventoryText = '***<没钱赚商店>购物清单***\n' +
        '打印时间：' + formattedDateString + '\n';
   inventoryText += '----------------------\n';
-  inventoryText += this.cart.getCartItemsText();
+  inventoryText += cart.getCartItemsText();
   inventoryText += '----------------------\n';
   inventoryText += '挥泪赠送商品：\n';
-  inventoryText += this.cart.getPromotionsText();
+  inventoryText += cart.getPromotionsText();
   inventoryText += '----------------------\n' ;
-  inventoryText += '总计：' + (this.cart.getTotalPrices() - this.cart.getPromotionTotalPrice()).toFixed(2) + '(元)\n';
-  inventoryText += '节省：' + this.cart.getPromotionTotalPrice().toFixed(2) + '(元)\n' ;
+  inventoryText += '总计：' + (cart.getTotalPrices() - cart.getPromotionTotalPrice()).toFixed(2) + '(元)\n';
+  inventoryText += '节省：' + cart.getPromotionTotalPrice().toFixed(2) + '(元)\n' ;
   inventoryText += '**********************';
   return inventoryText;
 
