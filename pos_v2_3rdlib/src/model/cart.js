@@ -30,7 +30,7 @@ Cart.prototype.getPromotionTotalPrice = function() {
   var promotionTotalPrice = 0;
 
   _.forEach(promotionItems, function(promotionItem) {
-    promotionTotalPrice += promotionItem.number * promotionItem.price;
+    promotionTotalPrice += promotionItem.count * promotionItem.price;
   });
 
   return promotionTotalPrice;
@@ -42,7 +42,7 @@ Cart.prototype.getPromotionsText = function() {
   for(var i = 0; i < promotionItems.length; i++) {
 
     promotionsText += '名称：' + promotionItems[i].name +
-    '，数量：' + promotionItems[i].number + promotionItems[i].unit + '\n';
+    '，数量：' + promotionItems[i].count + promotionItems[i].unit + '\n';
 
   }
 
@@ -71,9 +71,10 @@ Cart.prototype.getPayThePrice = function(){
 Cart.prototype.getPromotionItems = function() {
   var cartItems = this.cartItems;
   var promotionItems = [];
-
+  var promotions = Promotion.all();
   _.forEach(cartItems,function(cartItem) {
-    var promotions = loadPromotions();
+    var item = cartItem.item;
+    var count = cartItem.count;
     var promotion = _.find(promotions, {type:'BUY_TWO_GET_ONE_FREE'});
 
     var promotionBarcode = _.find(promotion.barcodes, function(promotionBarcode) {
@@ -81,12 +82,12 @@ Cart.prototype.getPromotionItems = function() {
     });
 
     if (promotionBarcode) {
-      promotionItems.push({
-        name : cartItem.item.name,
-        unit : cartItem.item.unit,
-        number : parseInt(cartItem.count / 3),
-        price:cartItem.item.price});
-      }
-    });
-    return promotionItems;
+      promotionItems.push(new PromotionItem(item.name,
+        item.unit,
+        parseInt(count / 3),
+        item.price));
+
+    }
+  });
+  return promotionItems;
   };
