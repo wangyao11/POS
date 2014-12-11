@@ -46,21 +46,8 @@ Cart.prototype.getCartItemsText = function(){
 
   _.forEach(this.cartItems, function(cartItem){
 
-    var item = cartItem.item;
-    var count = cartItem.count;
-    var price = item.price;
-    var promotionCount;
+    cartItemsText += cartItem.toInventoryText();
 
-    _.forEach(promotionItems, function(promotionItem){
-      if(promotionItem.name === cartItem.item.name){
-        promotionCount = promotionItem.number;
-      }
-    });
-    var paymentCount = count - promotionCount;
-
-    var subtatal = cartItem.getSubtotal(paymentCount);
-
-    cartItemsText += cartItem.toInventoryText(paymentCount);
   });
   return cartItemsText;
 };
