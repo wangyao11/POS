@@ -17,31 +17,9 @@ Cart.prototype.getCartItems = function(){
   return this.cartItems;
 };
 
-Cart.prototype.getPromotionItems = function(){
-  var cartItems = this.cartItems;
-  var promotionItems = [];
-
-  _.forEach(cartItems,function(cartItem){
-    var promotions = loadPromotions();
-    var promotion = _.find(promotions, {type:'BUY_TWO_GET_ONE_FREE'});
-
-    var promotionBarcode = _.find(promotion.barcodes, function(promotionBarcode){
-      return promotionBarcode === cartItem.item.barcode;
-    });
-
-    if (promotionBarcode) {
-      promotionItems.push({
-        name : cartItem.item.name,
-        unit : cartItem.item.unit,
-        number : parseInt(cartItem.count / 3),
-        price:cartItem.item.price});
-      }
-    });
-  return promotionItems;
-};
 
 Cart.prototype.getCartItemsText = function(){
-  
+
   var cartItemsText = '';
 
   _.forEach(this.cartItems, function(cartItem){
@@ -86,3 +64,27 @@ Cart.prototype.getTotalPrices = function(){
 
   return totalPrices;
 };
+
+Cart.prototype.getPromotionItems = function(){
+  var cartItems = this.cartItems;
+  var promotionItems = [];
+
+  _.forEach(cartItems,function(cartItem){
+    var promotions = loadPromotions();
+    var promotion = _.find(promotions, {type:'BUY_TWO_GET_ONE_FREE'});
+
+    var promotionBarcode = _.find(promotion.barcodes, function(promotionBarcode){
+      return promotionBarcode === cartItem.item.barcode;
+    });
+
+    if (promotionBarcode) {
+      promotionItems.push({
+        name : cartItem.item.name,
+        unit : cartItem.item.unit,
+        number : parseInt(cartItem.count / 3),
+        price:cartItem.item.price});
+      }
+    });
+    return promotionItems;
+  };
+  
