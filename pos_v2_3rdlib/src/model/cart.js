@@ -13,11 +13,6 @@ Cart.prototype.addCartItem = function(oneCartItem) {
   }
 };
 
-Cart.prototype.getCartItems = function() {
-  return this.cartItems;
-};
-
-
 Cart.prototype.getCartItemsText = function() {
 
   var cartItemsText = '';
