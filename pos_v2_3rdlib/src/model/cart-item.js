@@ -2,9 +2,9 @@ function CartItem(item, count) {
   this.item = item;
   this.count = count || 0;
 }
-CartItem.prototype.getPaymentCount = function(){
+CartItem.prototype.getPromotionCount = function(){
   var item = this.item;
-  var PaymentCount = 0;
+  var promotionCount = 0;
   var promotions = loadPromotions();
   var promotion = _.find(promotions, {type:'BUY_TWO_GET_ONE_FREE'});
 
@@ -12,13 +12,12 @@ CartItem.prototype.getPaymentCount = function(){
     return promotionBarcode === item.barcode;
   });
   if (promotionBarcode) {
-    PaymentCount = parseInt(this.count / 3);
+    promotionCount = parseInt(this.count / 3);
   }
-  return PaymentCount;
+  return promotionCount;
 };
 CartItem.prototype.getSubtotal = function() {
-  console.log(this.getPaymentCount());
-  return this.item.price * (this.count - this.getPaymentCount());
+  return this.item.price * (this.count - this.getPromotionCount());
 };
 
 CartItem.prototype.toInventoryText = function() {
