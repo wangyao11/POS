@@ -6,9 +6,9 @@ Cart.prototype.addCartItem = function(oneCartItem){
   var cartItem = _.find(cartItems, function(cartItem){
     return oneCartItem.item.barcode === cartItem.item.barcode;
   });
-  if(cartItem){
+  if (cartItem) {
     cartItem.count += oneCartItem.count;
-  }else{
+  } else {
     cartItems.push(oneCartItem);
   }
 };
@@ -23,14 +23,13 @@ Cart.prototype.getPromotionItems = function(){
 
   _.forEach(cartItems,function(cartItem){
     var promotions = loadPromotions();
-    var promotion = _.find(promotions,{type:'BUY_TWO_GET_ONE_FREE'});
+    var promotion = _.find(promotions, {type:'BUY_TWO_GET_ONE_FREE'});
 
-    var promotionBarcode = _.find(promotion.barcodes,function(promotionBarcode){
+    var promotionBarcode = _.find(promotion.barcodes, function(promotionBarcode){
       return promotionBarcode === cartItem.item.barcode;
     });
 
     if (promotionBarcode) {
-
       promotionItems.push({
         name : cartItem.item.name,
         unit : cartItem.item.unit,
@@ -66,15 +65,15 @@ Cart.prototype.getCartItemsText = function(){
   return cartItemsText;
 };
 
-Cart.prototype.getPromotionPrice = function(){
+Cart.prototype.getPromotionTotalPrice = function(){
   var promotionItems = this.getPromotionItems();
-  var promotionPrice = 0;
+  var promotionTotalPrice = 0;
 
   _.forEach(promotionItems, function(promotionItem){
-    promotionPrice += promotionItem.number * promotionItem.price;
+    promotionTotalPrice += promotionItem.number * promotionItem.price;
   });
 
-  return promotionPrice;
+  return promotionTotalPrice;
 };
 
 Cart.prototype.getPromotionsText = function(){

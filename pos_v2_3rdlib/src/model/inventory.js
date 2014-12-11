@@ -25,8 +25,8 @@ Inventory.prototype.toString = function(){
   inventoryText += '挥泪赠送商品：\n';
   inventoryText += this.cart.getPromotionsText();
   inventoryText += '----------------------\n' ;
-  inventoryText += '总计：' + (this.cart.getTotalPrices() - this.cart.getPromotionPrice()).toFixed(2) + '(元)\n';
-  inventoryText += '节省：' + this.cart.getPromotionPrice().toFixed(2) + '(元)\n' ;
+  inventoryText += '总计：' + (this.cart.getTotalPrices() - this.cart.getPromotionTotalPrice()).toFixed(2) + '(元)\n';
+  inventoryText += '节省：' + this.cart.getPromotionTotalPrice().toFixed(2) + '(元)\n' ;
   inventoryText += '**********************';
   return inventoryText;
 
