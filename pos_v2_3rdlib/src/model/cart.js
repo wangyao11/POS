@@ -24,6 +24,7 @@ Cart.prototype.getCartItemsText = function() {
     cartItemsText += cartItem.toInventoryText();
 
   });
+
   return cartItemsText;
 };
 
@@ -41,7 +42,8 @@ Cart.prototype.getPromotionsText = function() {
 
 Cart.prototype.getTotalPrices = function() {
   var totalPrices = 0;
-  _.forEach(this.cartItems,function(cartItem) {
+
+  _.forEach(this.cartItems, function(cartItem) {
     var item = cartItem.item;
     var count = cartItem.count;
     var price = item.price;
@@ -55,7 +57,7 @@ Cart.prototype.getTotalPrices = function() {
 Cart.prototype.getPromotionTotalPrice = function() {
   var promotionTotalPrice = 0;
 
-  _.forEach(this.cartItems,function(cartItem) {
+  _.forEach(this.cartItems, function(cartItem) {
     var item = cartItem.item;
     var count = cartItem.promotionCount;
     var price = item.price;
@@ -66,7 +68,7 @@ Cart.prototype.getPromotionTotalPrice = function() {
   return promotionTotalPrice;
 };
 
-Cart.prototype.getPayThePrice = function(){
+Cart.prototype.getPayThePrice = function() {
 
   return this.getTotalPrices() - this.getPromotionTotalPrice();
 

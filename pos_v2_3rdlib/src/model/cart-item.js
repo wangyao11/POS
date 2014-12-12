@@ -16,16 +16,17 @@ CartItem.prototype.toInventoryText = function() {
   return '名称：' + this.item.name +
          '，数量：' + this.count + this.item.unit +
          '，单价：' + this.item.price.toFixed(2) +
-         '(元)，小计：'+ this.getSubtotal().toFixed(2) + '(元)\n';
+         '(元)，小计：' + this.getSubtotal().toFixed(2) + '(元)\n';
 
 };
 
-CartItem.prototype.getPromotionText = function(cartItem) {
+CartItem.prototype.getPromotionText = function() {
   var promotionText = '';
 
   if (this.promotionCount !== 0) {
     promotionText += '名称：' + this.item.name +
          '，数量：' + this.promotionCount + this.item.unit + '\n';
   }
+
   return promotionText;
 };
