@@ -15,7 +15,7 @@ PromotionUtil.judgeCartItem = function(cartItem){
 
 PromotionUtil.getPromotionType = function(cartItem) {
   var promotions = Promotion.all();
-  var _this = this;
+
   var type = '';
   _.forEach(promotions, function(promotion){
     var promotionBarcode = _.find(promotion.barcodes, function(promotionBarcode) {

@@ -20,6 +20,18 @@ CartItem.prototype.toInventoryText = function() {
 
 };
 
+CartItem.prototype.getPromotionText = function(cartItem) {
+  var promotionText = '';
+  var type = PromotionUtil.getPromotionType(cartItem);
+
+  if(type){
+    promotionText += '名称：' + this.item.name +
+         '，数量：' + this.promotionCount + this.item.unit + '\n';
+  }
+  return promotionText;
+};
+
+
 CartItem.prototype.getPromotionType = function() {
   var promotions = Promotion.all();
   var _this = this;
