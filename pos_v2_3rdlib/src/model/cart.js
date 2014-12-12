@@ -69,19 +69,13 @@ Cart.prototype.getPayThePrice = function(){
 };
 
 Cart.prototype.getPromotionItems = function() {
-  var cartItems = this.cartItems;
   var promotionItems = [];
   var promotions = Promotion.all();
-  _.forEach(cartItems,function(cartItem) {
+  _.forEach(this.cartItems,function(cartItem) {
     var item = cartItem.item;
     var count = cartItem.count;
-    var promotion = _.find(promotions, {type:'BUY_TWO_GET_ONE_FREE'});
-
-    var promotionBarcode = _.find(promotion.barcodes, function(promotionBarcode) {
-      return promotionBarcode === cartItem.item.barcode;
-    });
-
-    if (promotionBarcode) {
+    var type = cartItem.getPromotionType();
+    if (type === 'BUY_TWO_GET_ONE_FREE') {
       promotionItems.push(new PromotionItem(item.name,
         item.unit,
         parseInt(count / 3),
