@@ -22,27 +22,10 @@ CartItem.prototype.toInventoryText = function() {
 
 CartItem.prototype.getPromotionText = function(cartItem) {
   var promotionText = '';
-  var type = PromotionUtil.getPromotionType(cartItem);
 
-  if(type){
+  if (this.promotionCount !== 0) {
     promotionText += '名称：' + this.item.name +
          '，数量：' + this.promotionCount + this.item.unit + '\n';
   }
   return promotionText;
-};
-
-
-CartItem.prototype.getPromotionType = function() {
-  var promotions = Promotion.all();
-  var _this = this;
-  var type = '';
-  _.forEach(promotions, function(promotion){
-    var promotionBarcode = _.find(promotion.barcodes, function(promotionBarcode) {
-      return promotionBarcode === _this.item.barcode;
-    });
-    if(promotionBarcode) {
-      type =  promotion.type;
-    }
-  });
-  return type;
 };

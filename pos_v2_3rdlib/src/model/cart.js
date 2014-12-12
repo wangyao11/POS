@@ -27,17 +27,6 @@ Cart.prototype.getCartItemsText = function() {
   return cartItemsText;
 };
 
-Cart.prototype.getPromotionTotalPrice = function() {
-  var promotionItems = this.getPromotionItems();
-  var promotionTotalPrice = 0;
-
-  _.forEach(promotionItems, function(promotionItem) {
-    promotionTotalPrice += promotionItem.count * promotionItem.price;
-  });
-
-  return promotionTotalPrice;
-};
-
 Cart.prototype.getPromotionsText = function() {
   var promotionsText = '';
 
@@ -63,26 +52,22 @@ Cart.prototype.getTotalPrices = function() {
   return totalPrices;
 };
 
+Cart.prototype.getPromotionTotalPrice = function() {
+  var promotionTotalPrice = 0;
+
+  _.forEach(this.cartItems,function(cartItem) {
+    var item = cartItem.item;
+    var count = cartItem.promotionCount;
+    var price = item.price;
+
+    promotionTotalPrice += count*price;
+  });
+
+  return promotionTotalPrice;
+};
+
 Cart.prototype.getPayThePrice = function(){
 
   return this.getTotalPrices() - this.getPromotionTotalPrice();
 
 };
-
-Cart.prototype.getPromotionItems = function() {
-  var promotionItems = [];
-  var promotions = Promotion.all();
-  _.forEach(this.cartItems,function(cartItem) {
-    var item = cartItem.item;
-    var count = cartItem.count;
-    var type = cartItem.getPromotionType();
-    if (type === 'BUY_TWO_GET_ONE_FREE') {
-      promotionItems.push(new PromotionItem(item.name,
-        item.unit,
-        parseInt(count / 3),
-        item.price));
-
-    }
-  });
-  return promotionItems;
-  };
