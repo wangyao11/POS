@@ -19,6 +19,8 @@ Cart.prototype.getCartItemsText = function() {
 
   _.forEach(this.cartItems, function(cartItem) {
 
+    PromotionUtil.judgeCartItem(cartItem);
+
     cartItemsText += cartItem.toInventoryText();
 
   });

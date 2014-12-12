@@ -1,21 +1,15 @@
 function CartItem(item, count) {
   this.item = item;
   this.count = count || 0;
+  this.promotionCount = 0;
 }
-CartItem.prototype.getPromotionCount = function() {
-  var promotionCount = 0;
 
-  var type = this.getPromotionType();
-
-  if (type === 'BUY_TWO_GET_ONE_FREE') {
-    promotionCount = parseInt(this.count / 3);
-  }
-
-  return promotionCount;
+CartItem.prototype.getPromotionCount = function(promotionCount) {
+  this.promotionCount = promotionCount;
 };
 
 CartItem.prototype.getSubtotal = function() {
-  return this.item.price * (this.count - this.getPromotionCount());
+  return this.item.price * (this.count - this.promotionCount);
 };
 
 CartItem.prototype.toInventoryText = function() {
